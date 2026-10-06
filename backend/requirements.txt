@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+authlib
+pwdlib[argon2]
+python-jose[cryptography]
+email-validator
+itsdangerous
+httpx

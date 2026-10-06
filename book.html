@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Send Harman a project requirement or booking request.">
+  <title>Book | Harman Sodha</title><link rel="stylesheet" href="css/style.css">
+</head>
+<body class="inner-page">
+  <aside class="mode-rail" aria-label="Site modes"><div class="mode-label">MODE</div><a class="mode-item" href="index.html">HOME</a><a class="mode-item" href="projects.html">PROJECTS</a><a class="mode-item" href="build.html">BUILD</a><a class="mode-item active" href="book.html">BOOK</a></aside>
+  <header class="site-header"><nav class="container nav" aria-label="Main navigation"><a class="brand" href="index.html">HS<span>.</span></a><button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">☰</button><div class="nav-links"><a href="index.html#about">About</a><a href="index.html#skills">Skills</a><a href="projects.html">Projects</a><a href="index.html#contact">Contact</a></div></nav></header>
+  <main>
+    <section class="page-hero book-hero"><div class="container">
+      <p class="section-kicker">BOOK</p><h1>Tell me what you need.</h1>
+      <p class="page-lead">Send your requirements as a note. There is no artificial character limit. After sending, you can edit or delete your submitted note.</p>
+      <div class="book-grid">
+        <div class="booking-card">
+          <p class="project-type">NEW REQUEST</p><h2>Project requirements</h2>
+          <form id="bookForm">
+            <label for="requesterName">Name</label><input id="requesterName" name="name" type="text" maxlength="160" required placeholder="Your name">
+            <label for="requesterEmail">Email</label><input id="requesterEmail" name="email" type="email" maxlength="320" required placeholder="you@example.com">
+            <label for="requestType">Request type</label><select id="requestType" name="request_type"><option>Project</option><option>Internship</option><option>Collaboration</option><option>Other</option></select>
+            <label for="requirements">Requirements</label><textarea id="requirements" name="requirements" required placeholder="Write everything you need..." rows="12"></textarea>
+            <button class="primary-btn" type="submit">Send requirement</button>
+            <p id="bookStatus" class="form-status" role="status"></p>
+          </form>
+        </div>
+        <div class="booking-card submitted-card"><p class="project-type">YOUR REQUEST</p><h2>Submitted note</h2><div id="submittedState"><p class="muted">No request submitted yet.</p></div></div>
+      </div>
+    </div></section>
+  </main>
+  <footer class="footer"><div class="container"><p>© <span id="year"></span> Harman Sodha. Built with HTML, CSS & JavaScript.</p></div></footer>
+  <script src="js/script.js"></script>
+  <script>
+    const API_BASE = localStorage.getItem('apiBaseUrl') || 'http://localhost:8000';
+    const form = document.getElementById('bookForm'), statusEl = document.getElementById('bookStatus'), stateEl = document.getElementById('submittedState');
+    let currentId = null;
+    function setStatus(message, ok=false){ statusEl.textContent=message; statusEl.className='form-status '+(ok?'success':'error'); }
+    function renderRequest(item){ currentId=item.id; stateEl.innerHTML=`<div class="submitted-note"><p class="project-type">YOU HAVE SENT THIS</p><p class="note-meta">${escapeHtml(item.request_type)} · ${new Date(item.created_at).toLocaleString()}</p><div class="note-body">${escapeHtml(item.requirements).replace(/\n/g,'<br>')}</div><div class="note-actions"><button class="secondary-btn" id="editRequest">Edit</button><button class="danger-btn" id="deleteRequest">Delete</button></div></div>`;
+      document.getElementById('editRequest').onclick=()=>{document.getElementById('requesterName').value=item.name;document.getElementById('requesterEmail').value=item.email;document.getElementById('requestType').value=item.request_type;document.getElementById('requirements').value=item.requirements;form.scrollIntoView({behavior:'smooth'});};
+      document.getElementById('deleteRequest').onclick=async()=>{if(!confirm('Delete this submitted note?'))return; const r=await fetch(`${API_BASE}/book/requests/${item.id}`,{method:'DELETE'}); if(r.ok){currentId=null;stateEl.innerHTML='<p class="muted">No request submitted yet.</p>';setStatus('Your request was deleted.',true)}else setStatus('Could not delete the request.');};
+    }
+    function escapeHtml(v){return v.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
+    form.addEventListener('submit',async e=>{e.preventDefault();setStatus('Sending...');const payload=Object.fromEntries(new FormData(form).entries());const url=currentId?`${API_BASE}/book/requests/${currentId}`:`${API_BASE}/book/requests`;const r=await fetch(url,{method:currentId?'PUT':'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const data=await r.json().catch(()=>({}));if(r.ok){renderRequest(data);setStatus(currentId?'Your request was updated.':'Your request was sent.',true)}else setStatus(data.detail||'Could not send the request.');});
+  </script>
+</body></html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Harman Sodha's projects — Task Management Backend System and Personal Digital Command Centre.">
+  <title>Projects | Harman Sodha</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="inner-page">
+  <aside class="mode-rail" aria-label="Site modes">
+    <div class="mode-label">MODE</div>
+    <a class="mode-item" href="index.html">HOME</a>
+    <a class="mode-item active" href="projects.html">PROJECTS</a>
+    <a class="mode-item" href="build.html">BUILD</a>
+    <a class="mode-item" href="book.html">BOOK</a>
+  </aside>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Main navigation">
+      <a class="brand" href="index.html">HS<span>.</span></a>
+      <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+      <div class="nav-links">
+        <a href="index.html#about">About</a>
+        <a href="index.html#skills">Skills</a>
+        <a href="projects.html">Projects</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="section-kicker">PROJECTS</p>
+        <h1>Systems I’m building.</h1>
+        <p class="page-lead">A focused view of the projects behind my learning and development work.</p>
+      </div>
+    </section>
+
+    <section class="section projects-page-section">
+      <div class="container">
+        <div class="project-showcase-grid">
+          <article class="project-card project-showcase featured">
+            <div class="project-number">01</div>
+            <div class="project-content">
+              <p class="project-type">BACKEND SYSTEM</p>
+              <h2>Task Management Backend System</h2>
+              <p>A practical backend system for managing tasks, users, authentication, protected routes, roles, and structured application logic.</p>
+              <div class="tags"><span>Python</span><span>FastAPI</span><span>SQL</span><span>JWT</span></div>
+              <details class="project-doc">
+                <summary>README</summary>
+                <div class="doc-content">
+                  <h3>Task Management</h3>
+                  <p>A production-oriented REST API backend for managing users and their tasks, built with FastAPI, PostgreSQL, SQLAlchemy and JWT-based authentication.</p>
+                  <p>The project focuses on clean backend architecture, authentication, authorization, database interaction, API design and maintainable code organization.</p>
+                  <h4>Features</h4>
+                  <ul><li>User registration and login</li><li>JWT authentication and protected routes</li><li>Password hashing and verification</li><li>Role-based access control</li><li>User-specific task management and ownership validation</li><li>CRUD operations for tasks</li><li>PostgreSQL + SQLAlchemy ORM</li><li>Pydantic validation and environment configuration</li><li>Postman API testing</li><li>Modular backend architecture</li></ul>
+                  <h4>Tech Stack</h4>
+                  <p><strong>Backend:</strong> Python, FastAPI, SQLAlchemy, Pydantic<br><strong>Database:</strong> PostgreSQL, Supabase PostgreSQL<br><strong>Authentication:</strong> JWT, OAuth2 password flow, password hashing<br><strong>Tools:</strong> Git, GitHub, Postman, Alembic</p>
+                </div>
+              </details>
+              <details class="project-doc">
+                <summary>Architecture</summary>
+                <div class="doc-content">
+                  <p>The backend follows a layered architecture that separates API handling, authentication, business logic, database operations and validation.</p>
+                  <pre>Client
+  ↓
+FastAPI API
+  ↓
+Routes
+  ↓
+Controllers
+  ↓
+Services
+  ↓
+Repositories
+  ↓
+SQLAlchemy ORM
+  ↓
+PostgreSQL</pre>
+                </div>
+              </details>
+            </div>
+          </article>
+
+          <article class="project-card project-showcase">
+            <div class="project-number">02</div>
+            <div class="project-content">
+              <p class="project-type">PERSONAL SYSTEM</p>
+              <h2>Personal Digital Command Centre</h2>
+              <p>A broader personal software system designed to bring useful tools and workflows into one organized command centre.</p>
+              <div class="tags"><span>Python</span><span>Backend</span><span>Web</span><span>AI-ready</span></div>
+              <details class="project-doc">
+                <summary>README</summary>
+                <div class="doc-content">
+                  <h3>Personal Digital Command Centre</h3>
+                  <p>A personal productivity and management system designed to bring tasks, notes, files and personal data into one centralized digital workspace.</p>
+                  <p>The project is being developed as a modular full-stack application with a focus on practical backend engineering, file management, API architecture and a scalable foundation for future features.</p>
+                  <pre>One Application
+      │
+      ├── Tasks
+      ├── Notes
+      ├── Files
+      └── Personal Data</pre>
+                </div>
+              </details>
+              <details class="project-doc">
+                <summary>Architecture</summary>
+                <div class="doc-content">
+                  <p>The application uses a simple layered architecture. The frontend communicates with a FastAPI backend through HTTP APIs; services handle application logic and the backend communicates with the database and filesystem when required.</p>
+                  <pre>USER
+  ↓
+FRONTEND
+  ↓
+FASTAPI API
+  ↓
+ROUTES
+  ↓
+CONTROLLERS
+  ↓
+SERVICES
+  ↓
+DATABASE / FILE SYSTEM
+  ↓
+RESPONSE</pre>
+                  <h4>Core modules</h4><ul><li>Tasks</li><li>Notes</li><li>Files and folders</li><li>Database</li><li>Security and path validation</li></ul>
+                  <h4>Project structure</h4>
+                  <pre>personal-digital-command-centre/
+├── frontend/
+├── backend/
+│   ├── main.py
+│   └── src/
+│       ├── routes/
+│       ├── controllers/
+│       ├── services/
+│       ├── schemas/
+│       ├── models/
+│       ├── utils/
+│       └── database/
+├── storage/
+├── README.md
+└── ARCHITECTURE.md</pre>
+                </div>
+              </details>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container"><p>© <span id="year"></span> Harman Sodha. Built with HTML, CSS & JavaScript.</p></div></footer>
+  <script src="js/script.js"></script>
+</body>
+</html>

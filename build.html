@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Build mode — sign in before opening the Wix AI Website Builder.">
+  <title>Build | Harman Sodha</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="inner-page build-page">
+  <aside class="mode-rail" aria-label="Site modes">
+    <div class="mode-label">MODE</div>
+    <a class="mode-item" href="index.html">HOME</a>
+    <a class="mode-item" href="projects.html">PROJECTS</a>
+    <a class="mode-item active" href="build.html">BUILD</a>
+    <a class="mode-item" href="book.html">BOOK</a>
+  </aside>
+  <header class="site-header">
+    <nav class="container nav" aria-label="Main navigation">
+      <a class="brand" href="index.html">HS<span>.</span></a>
+      <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+      <div class="nav-links">
+        <a href="index.html#about">About</a><a href="index.html#skills">Skills</a><a href="projects.html">Projects</a><a href="index.html#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="page-hero build-hero">
+      <div class="container build-layout">
+        <div>
+          <p class="section-kicker">BUILD</p>
+          <h1>Turn an idea into a website.</h1>
+          <p class="page-lead">Sign in here first, then continue directly to Wix’s AI Website Builder.</p>
+        </div>
+        <div class="login-card">
+          <div class="login-card-top"><span class="status-dot"></span><span>ACCESS GATE</span></div>
+          <h2>Sign in to continue</h2>
+          <p class="login-note">This gate only controls this portfolio’s Build flow. It does not create a real account or send your password anywhere.</p>
+          <div class="oauth-grid" aria-label="Social login options">
+            <a class="oauth-button google" href="http://localhost:8000/auth/google">Continue with Google</a>
+            <a class="oauth-button github" href="http://localhost:8000/auth/github">Continue with GitHub</a>
+            <a class="oauth-button facebook" href="http://localhost:8000/auth/facebook">Continue with Facebook</a>
+          </div>
+          <div class="login-divider"><span>or continue with email</span></div>
+          <form id="buildLoginForm" novalidate>
+            <label for="buildEmail">Email</label>
+            <input id="buildEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            <label for="buildPassword">Password</label>
+            <input id="buildPassword" name="password" type="password" autocomplete="current-password" placeholder="Enter a password" minlength="4" required>
+            <p class="form-error" id="buildFormError" role="alert"></p>
+            <button class="button primary full-width" type="submit">Continue to Wix AI Builder</button>
+          </form>
+          <p class="external-note">Social login uses OAuth. Provider credentials are configured on the backend and are never placed in this page.</p>
+          <p class="external-note">After authentication, you’ll continue to the official Wix AI Website Builder.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="container"><p>© <span id="year"></span> Harman Sodha. Built with HTML, CSS & JavaScript.</p></div></footer>
+  <script src="js/script.js"></script>
+  <script>
+    const buildForm = document.getElementById('buildLoginForm');
+    const buildError = document.getElementById('buildFormError');
+    const wixUrl = 'https://www.wix.com/ai-website-builder';
+
+    buildForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const email = document.getElementById('buildEmail').value.trim();
+      const password = document.getElementById('buildPassword').value;
+      buildError.textContent = '';
+
+      if (!email || !email.includes('@')) {
+        buildError.textContent = 'Enter a valid email address.';
+        return;
+      }
+      if (password.length < 4) {
+        buildError.textContent = 'Enter at least 4 characters.';
+        return;
+      }
+
+      window.location.href = wixUrl;
+    });
+  </script>
+</body>
+</html>
